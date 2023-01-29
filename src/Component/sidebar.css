@@ -14,3 +14,21 @@
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
 }
+
+a {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #391B49;
+    text-decoration: none;
+}
+a:active, a.active {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 16px;
+    color: #391B49;
+    text-decoration: none;
+}
