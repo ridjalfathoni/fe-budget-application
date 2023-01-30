@@ -9,7 +9,25 @@ const initialState = {
 
 export const addNewWallet = createAsyncThunk('wallet/addWallet', async (data) => {
     try {
-        const res = await axiosInstance.post('/wallet/addWallet', data)
+        const res = await axiosInstance.post('/wallet/addWallet')
+        return res.data
+    } catch (error) {
+        
+    }
+})
+
+export const updateNewWallet = createAsyncThunk('wallet/addWallet', async (data) => {
+    try {
+        const res = await axiosInstance.put('/wallet/updateWalletByID', data)
+        return res.data
+    } catch (error) {
+        
+    }
+})
+
+export const getListWallet = createAsyncThunk('wallet/getListWallet', async () => {
+    try {
+        const res = await axiosInstance.get('/wallet/getListWallet')
         return res.data
     } catch (error) {
         
@@ -26,8 +44,17 @@ export const walletSlice = createSlice({
             state.message = payload.message;
             state.status = payload.message;
             state.data = payload.data;
+        },
+        [getListWallet.pending]: (state) => {
+            state.isLoading = true
+        },
+        [getListWallet.fulfilled]: (state, {payload}) => {
+            state.data = payload.result;
+            state.isLoading = false;
         }
     }
 })
+
+export const walletReducer = walletSlice.reducer
 
 export default walletSlice.reducer
