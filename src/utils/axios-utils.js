@@ -6,14 +6,14 @@ let accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('ac
 const baseURL = 'http://localhost:3001/api'
 
 const axiosInstance = axios.create({
-    baseUrl: baseURL,
+    baseURL: baseURL,
     header: {
         Authorization: `Bearer ${accessToken}`
     }
 })
 
 const axiosPublic = axios.create({
-    baseURL: "http://localhost:3001/api"
+    baseURL: baseURL
 })
 
 axiosInstance.interceptors.request.use(async req => {
@@ -25,7 +25,7 @@ axiosInstance.interceptors.request.use(async req => {
     const isExpired = dayjs.unix(user.exp).diff((dayjs()) < 1);
     if (!isExpired) return req
     let refreshToken = localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : null
-    const response = await axios.post(`${baseURL}/Auth/refreshToken`, {
+    const response = await axios.post(`${baseURL}/auth/refreshToken`, {
         refreshToken: refreshToken
     }).then((res) => {
         return res
