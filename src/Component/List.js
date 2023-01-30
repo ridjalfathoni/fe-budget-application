@@ -16,10 +16,10 @@ function List(props) {
                             <span className={classes.text_amount}>{data.balance}</span>
                         </div>
                         <div className={classes.list_activity}>
-                            <button className={classes.btn_activity} onClick={() => props.updateFunc(data)}>
+                            <button className={classes.btn_activity}>
                                 <img className={classes.btn_img} src={require('../assets/icons/trash.png')} alt="" />
                             </button>
-                            <button className={classes.btn_activity}>
+                            <button className={classes.btn_activity}  onClick={() => props.updateFunc(data)}>
                                 <img className={classes.btn_img} src={require('../assets/icons/edit.png')} alt="" />
                             </button>
                         </div>
