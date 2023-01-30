@@ -7,12 +7,14 @@ import Transactions from './Pages/Transactions';
 import Wallet from './Pages/Wallet';
 import Login from './Pages/Login';
 import ProtectedRoute from './ProtectedRoute';
+import SignUp from './Pages/Signup';
 
 function App() {
   return (
     <div className="container">
       <Routes>
         <Route path="login" element={<Login />} />
+        <Route path='Signup' element={<SignUp />} />
         <Route element={<><ProtectedRoute /> <Sidebar /></>}>
             <Route path='/' element={<Dashboard />} />
             <Route path='Transactions' element={<Transactions />} />

@@ -25,6 +25,15 @@ const initialState = {
     }
  })
 
+ export const registerNewUser = createAsyncThunk('auth/register', async (data) => {
+    try {
+        const res = await axiosPublic.post('/user/registerUser', data)
+        return res.data
+    } catch (error) {
+        return error.message
+    }
+ })
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -51,6 +60,14 @@ export const authSlice = createSlice({
             state.data = "";
             localStorage.removeItem("accessToken")
             localStorage.removeItem("refreshToken")
+        },
+        [registerNewUser.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [registerNewUser.fulfilled]: (state, {payload}) => {
+            state.loading = false;
+            state.message = payload.message;
+            state.status = payload.status;
         }
     }
 })
