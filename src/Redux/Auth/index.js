@@ -16,6 +16,15 @@ const initialState = {
     }
  })
 
+ export const authLogoutAPI = createAsyncThunk('auth/logout', async (data) => {
+    try {
+        const res = await axiosPublic.post('/auth/logout', data)
+        return res.data
+    } catch (error) {
+        return error.message
+    }
+ })
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -34,6 +43,14 @@ export const authSlice = createSlice({
         },
         [authLoginAPI.rejected]: (state) => {
             state.loading = false
+        },
+        [authLogoutAPI.fulfilled]: (state, {payload}) => {
+            state.loading = false;
+            state.message = payload.message;
+            state.status = payload.status;
+            state.data = "";
+            localStorage.removeItem("accessToken")
+            localStorage.removeItem("refreshToken")
         }
     }
 })
