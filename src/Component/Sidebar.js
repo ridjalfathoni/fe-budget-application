@@ -9,6 +9,7 @@ function Sidebar(props) {
                 <Link to="/">Dashboard</Link>
                 <Link to="/Transactions">Transactions</Link>
                 <Link to="/Wallet">Wallet</Link>
+                <Link to="/Logout">Logout</Link>
             </nav>
         </>
     );
