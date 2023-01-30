@@ -1,22 +1,22 @@
-import axios from ('axios');
+import axios from "axios";
 import jwtDecode from "jwt-decode";
 import dayjs from "dayjs";
 
 let accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null
-const baseUrl = 'http://localhost:3001:/api'
+const baseURL = 'http://localhost:3001/api'
 
 const axiosInstance = axios.create({
-    baseUrl: baseUrl,
+    baseUrl: baseURL,
     header: {
         Authorization: `Bearer ${accessToken}`
     }
 })
 
 const axiosPublic = axios.create({
-    baseURL: baseURL
+    baseURL: "http://localhost:3001/api"
 })
 
-axiosInstance.interceptors.requiaxiosInstance.interceptors.request.use(async req => {
+axiosInstance.interceptors.request.use(async req => {
     if(!accessToken){
         accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
         req.headers.Authorization = `Bearer ${accessToken}`;
