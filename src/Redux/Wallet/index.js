@@ -34,6 +34,15 @@ export const getListWallet = createAsyncThunk('wallet/getListWallet', async () =
     }
 })
 
+export const deleteWalletByID = createAsyncThunk('wallet/deleteWalletByID', async (data) => {
+    try {
+        const res = await axiosInstance.delete('/wallet/deleteWalletByID',{data:data})
+        return {...res.data, ...data}
+    } catch (error) {
+        
+    }
+})
+
 export const walletSlice = createSlice({
     name: "wallet",
     initialState,
@@ -50,6 +59,9 @@ export const walletSlice = createSlice({
         },
         [getListWallet.fulfilled]: (state, {payload}) => {
             state.data = payload.result;
+            state.isLoading = false;
+        },
+        [deleteWalletByID.fulfilled]: (state, {payload}) => {
             state.isLoading = false;
         }
     }

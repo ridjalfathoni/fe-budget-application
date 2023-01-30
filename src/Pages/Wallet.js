@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import List from '../Component/List';
 import Modal from '../Component/Modal';
-import { addNewWallet, getListWallet, updateNewWallet } from '../Redux/Wallet';
+import { addNewWallet, getListWallet, updateNewWallet, deleteWalletByID } from '../Redux/Wallet';
 import './wallet.css'
 
 function Wallet(props) {
@@ -39,7 +39,12 @@ function Wallet(props) {
 
     useEffect(() => {
         dispatch(getListWallet())
-    }, [])
+    }, [data])
+
+    const handleDelete = (id) => {
+        dispatch(deleteWalletByID({id: id}))
+        dispatch(getListWallet())
+    }
 
     const handleUpdateChange = (e) => {
         const { name, value } = e.target;
@@ -97,7 +102,7 @@ function Wallet(props) {
                     <h1>Wallet</h1>
                 </div>
 
-                <List title="List Wallet" data={data} updateFunc={updateModal} />
+                <List title="List Wallet" data={data} updateFunc={updateModal} deleteFunc={handleDelete}/>
             </div>
         </>
     );
