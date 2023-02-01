@@ -41,7 +41,7 @@ function Modal(props) {
                                                     {
                                                         (props.formList.page == "transactions" && form.key == "wallet_id") && (
                                                             walletData.map((data, k) => (
-                                                                <option key={`option-${form.key}-${k}`} value={data.id}>{data.name}</option>
+                                                                <option key={`option-${form.key}-${k}`} value={data._id}>{data.name}</option>
                                                             ))
                                                         )
                                                     }
@@ -57,7 +57,7 @@ function Modal(props) {
                                                     {
                                                         props.formList.page == "transactions" && (
                                                             categoryData.map((data, k) => (
-                                                                <option key={`option-${form.key}-${k}`} value={data.id}>{data.name}</option>
+                                                                <option key={`option-${form.key}-${k}`} value={data._id}>{data.name}</option>
                                                             ))
                                                         )
                                                     }
