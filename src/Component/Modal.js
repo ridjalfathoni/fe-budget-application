@@ -5,7 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import './modal.css'
 
 function Modal(props) {
-    const walletData = useSelector((state) => state?.[props.formList.page]?.data);
+    const walletData = useSelector((state) => state?.wallet?.data);
+    const categoryData = useSelector((state) => state?.category?.data);
 
     return (
         <div className='modal'>
@@ -38,7 +39,7 @@ function Modal(props) {
                                                 // <select key={`select-${form.key}`} onChange={handleChange}>
                                                 <select key={`select-${form.key}`} name={form.key} onChange={(e) => form.handleOnChangeModal(e, props.formList.isUpdate)} defaultValue={form.value}>
                                                     {
-                                                        props.formList.page == "wallet" && (
+                                                        (props.formList.page == "transactions" && form.key == "wallet_id") && (
                                                             walletData.map((data, k) => (
                                                                 <option key={`option-${form.key}-${k}`} value={data.id}>{data.name}</option>
                                                             ))
@@ -51,6 +52,13 @@ function Modal(props) {
                                                                 <option key="income" value="income">Income</option>
                                                                 <option key="expense" value="expense">Expense</option>
                                                             </>
+                                                        )
+                                                    }
+                                                    {
+                                                        props.formList.page == "transactions" && (
+                                                            categoryData.map((data, k) => (
+                                                                <option key={`option-${form.key}-${k}`} value={data.id}>{data.name}</option>
+                                                            ))
                                                         )
                                                     }
                                                 </select>
