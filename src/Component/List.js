@@ -12,8 +12,8 @@ function List(props) {
                             <img className={classes.image} src={data.icon? `data:image/jpeg;base64,${data.icon}` :require('../assets/icons/wallet.png')} alt="" />
                         </div>
                         <div className={classes.list_text_wrap}>
-                            <span className={classes.text_title}>{data.name}</span>
-                            <span className={classes.text_amount}>{data.type ? data.type : data.balance}</span>
+                            <span className={classes.text_title}>{data.name ? data.name : `${data.category_name} - ${data.category_type}`}</span>
+                            <span className={classes.text_amount}>{data.type ? data.type : ( data.balance ? data.balance : data.amount)}</span>
                         </div>
                         <div className={classes.list_activity}>
                             <button className={classes.btn_activity} onClick={() => props.deleteFunc(data._id)}>
