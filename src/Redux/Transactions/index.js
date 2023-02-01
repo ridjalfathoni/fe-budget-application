@@ -10,7 +10,7 @@ const initialState = {
 
 export const addNewTransactions = createAsyncThunk('transactions/addTransactions', async (data) => {
     try {
-        const res = await axiosInstance.post('/transactions/addTransactions')
+        const res = await axiosInstance.post('/transactions/addTransactions', data)
         return res.data
     } catch (error) {
         
@@ -27,11 +27,7 @@ export const deleteTransactionsByID = createAsyncThunk('transactions/deleteTrans
 })
 export const updateTransactions = createAsyncThunk('transactions/updateTransactions', async (data) => {
     try {
-        const res = await axiosInstance.put('/transactions/updateTransactions', data, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        const res = await axiosInstance.put('/transactions/updateTransactions', data)
         return res.data
     } catch (error) {
         
@@ -59,7 +55,6 @@ export const transactionsSlice = createSlice({
             state.isLoading = false;
             state.message = payload.message;
             state.status = payload.status;
-            state.data = payload.data
         },
         [deleteTransactionsByID.fulfilled]: (state, {payload}) => {
             state.isLoading = false;
