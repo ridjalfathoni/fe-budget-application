@@ -9,14 +9,14 @@ function List(props) {
                 props.data.length ? props.data.map((data, k) => (
                     <div key={k} className={classes.list_content}>
                         <div className={classes.list_img}>
-                            <img className={classes.image} src={require('../assets/icons/wallet.png')} alt="" />
+                            <img className={classes.image} src={data.icon? `data:image/jpeg;base64,${data.icon}` :require('../assets/icons/wallet.png')} alt="" />
                         </div>
                         <div className={classes.list_text_wrap}>
                             <span className={classes.text_title}>{data.name}</span>
-                            <span className={classes.text_amount}>{data.balance}</span>
+                            <span className={classes.text_amount}>{data.type ? data.type : data.balance}</span>
                         </div>
                         <div className={classes.list_activity}>
-                            <button className={classes.btn_activity}>
+                            <button className={classes.btn_activity} onClick={() => props.deleteFunc(data._id)}>
                                 <img className={classes.btn_img} src={require('../assets/icons/trash.png')} alt="" />
                             </button>
                             <button className={classes.btn_activity}  onClick={() => props.updateFunc(data)}>

@@ -24,26 +24,26 @@ function SignUp(props) {
             <form onSubmit={submitForm}>
                 <div className="form-input">
                     <label htmlFor="Username">Username</label>
-                    <input type="text" placeholder='Username' onChange={(e) => {
+                    <input className='form-input' type="text" placeholder='Username' onChange={(e) => {
                         const username = e.target.value;
                         setSignupState({...signupState, ...{username}});
                     }}/>
                 </div>
                 <div className="form-input">
                     <label htmlFor="name">Name</label>
-                    <input type="text" placeholder='Name' onChange={(e) => {
+                    <input className='form-input' type="text" placeholder='Name' onChange={(e) => {
                         const name = e.target.value;
                         setSignupState({...signupState, ...{name}});
                     }}/>
                 </div>
                 <div className="form-input">
                     <label htmlFor="Passowrd">Password</label>
-                    <input type="password" placeholder='Username' onChange={(e) => {
+                    <input className='form-input' type="password" placeholder='Username' onChange={(e) => {
                         const password = e.target.value;
                         setSignupState({...signupState, ...{password}});
                     }}/>
                 </div>
-                <button>Sign Up</button>
+                <button className='btn-signUp'>Sign Up</button>
                 <Link to="/Login">Login</Link>
             </form>
         </div>
