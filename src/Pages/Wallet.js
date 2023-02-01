@@ -9,65 +9,67 @@ function Wallet(props) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [newWalletData, setNewWalletData] = useState({})
     const [updateWallet, setUpdateWallet] = useState({})
+    const [modalData, setModalData] = useState({})
     const [modalForm, setModalForm] = useState({
         isForm: true,
-        title: "",
+        title: "Add Wallet",
+        page: "wallet",
         isUpdate: false,
-        data: [
-            {
-                key: "name",
-                label: "Wallet Name",
-                type: "text",
-                func: (cb) => {
-                    const name = cb.target.value;
-                    setNewWalletData({ ...newWalletData, ...{ name } });
-                }
-            },
-            {
-                key: "balance",
-                label: "Amount",
-                type: "Number",
-                func: (cb) => {
-                    const amount = cb.target.value;
-                    setNewWalletData({ ...newWalletData, ...{ amount } })
-                }
-            }
-        ]
+        data: []
     })
     const { data } = useSelector((state) => state.wallet);
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getListWallet())
-    }, [data])
+    }, [dispatch])
 
-    const handleDelete = (id) => {
-        dispatch(deleteWalletByID({id: id}))
-        dispatch(getListWallet())
+    const handleDelete = async (id) => {
+        await dispatch(deleteWalletByID({id: id}))
+        await dispatch(getListWallet())
     }
 
-    const handleUpdateChange = (e) => {
+    const handleOnChangeModal = (e,isUpdate) => {
         const { name, value } = e.target;
-        setUpdateWallet((prev) => ({
-            ...prev,
-            id:prev._id,
-            [name]:value
-        }))
+        if (isUpdate) {
+            setModalData((prev) => ({
+                ...prev,
+                id:prev._id,
+                [name]:value
+            }))
+        } else {
+            setModalData((prev) => ({
+                ...prev,
+                [name]:value
+            }))
+        }
     }
+    
     const updateModal = (cb) => {
         let passData = cb
-        setUpdateWallet(passData);
+        setModalData(passData);
         setModalForm({
             ...modalForm,
             title: "Update Wallet",
             isUpdate: true,
-            data: modalForm.data.map((data) => (
+            data: [
                 {
-                    ...data,
-                    value: passData[data.key],
-                    handleUpdateChange
+                    key: "name",
+                    label: "Wallet Name",
+                    type: "text",
+                    isInput: true,
+                    value: passData.name,
+                    handleOnChangeModal
+                },
+                {
+                    key: "balance",
+                    label: "Amount",
+                    type: "Number",
+                    isInput: true,
+                    value: passData.balance,
+                    handleOnChangeModal
                 }
-            ))
+            ]
         });
         setModalIsOpen(true);
     }
@@ -76,15 +78,46 @@ function Wallet(props) {
         setModalIsOpen(false);
     }
 
-    const submitModalForm = (cb, param) => {
+    const submitModalForm = async (cb, param) => {
         cb.preventDefault()
-        if (param) {
-            dispatch(updateNewWallet(updateWallet))
+        
+        if (!param) {
+            await dispatch(addNewWallet(modalData))
         } else {
-            dispatch(addNewWallet(newWalletData))
+            await dispatch(updateNewWallet(modalData))
         }
-        dispatch(getListWallet())
+        await dispatch(getListWallet());
+        
     };
+
+    const handleAdd = () => {
+        setModalData({
+            name: "",
+            balance: 0
+        });
+        setModalForm({
+            ...modalForm,
+            title: "Add New Wallet",
+            isUpdate: false,
+            data: [
+                {
+                    key: "name",
+                    label: "Wallet Name",
+                    type: "text",
+                    isInput: true,
+                    handleOnChangeModal
+                },
+                {
+                    key: "balance",
+                    label: "Amount",
+                    type: "Number",
+                    isInput: true,
+                    handleOnChangeModal
+                }
+            ]
+        })
+        setModalIsOpen(true)
+    }
 
     return (
         <>
@@ -100,6 +133,7 @@ function Wallet(props) {
             <div className="features-menu">
                 <div className="features-header">
                     <h1>Wallet</h1>
+                    <button className='btn-add' onClick={handleAdd}>Add</button>
                 </div>
 
                 <List title="List Wallet" data={data} updateFunc={updateModal} deleteFunc={handleDelete}/>

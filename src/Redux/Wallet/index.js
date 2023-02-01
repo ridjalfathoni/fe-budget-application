@@ -9,7 +9,7 @@ const initialState = {
 
 export const addNewWallet = createAsyncThunk('wallet/addWallet', async (data) => {
     try {
-        const res = await axiosInstance.post('/wallet/addWallet')
+        const res = await axiosInstance.post('/wallet/addWallet',data)
         return res.data
     } catch (error) {
         
@@ -52,7 +52,6 @@ export const walletSlice = createSlice({
             state.isLoading = false;
             state.message = payload.message;
             state.status = payload.message;
-            state.data = payload.data;
         },
         [getListWallet.pending]: (state) => {
             state.isLoading = true
