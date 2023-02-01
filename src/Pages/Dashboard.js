@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '../Component/Card';
 import List from '../Component/List';
+import { getAllTransactions } from '../Redux/Transactions';
 // import './Dashboard.css'
 
 function Dashboard(props) {
-
+    const { data } = useSelector((state) => state.transactions);
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getAllTransactions())
+    }, [dispatch])
     const dummyCard = [
         {
             key: "balance",
@@ -38,7 +44,7 @@ function Dashboard(props) {
                 </div>
             </div>
             <Card cardListContent={dummyCard} />
-            <List title="Recent Transactions" data={[]}/>
+            <List title="Recent Transactions" data={data}/>
         </>
     );
 }
