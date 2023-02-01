@@ -8,6 +8,7 @@ import Wallet from './Pages/Wallet';
 import Login from './Pages/Login';
 import ProtectedRoute from './ProtectedRoute';
 import SignUp from './Pages/Signup';
+import Category from './Pages/Category';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path='/' element={<Dashboard />} />
             <Route path='Transactions' element={<Transactions />} />
             <Route path='Wallet' element={<Wallet />} />
+            <Route path='Category' element={<Category />} />
           </Route>
       </Routes>
     </div>
