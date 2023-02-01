@@ -165,7 +165,7 @@ function Category(props) {
                     <button className='btn-add' onClick={handleAdd}>Add</button>
                 </div>
 
-                <List title="List Wallet" data={data} updateFunc={updateModal} deleteFunc={handleDelete} />
+                <List title="List Category" data={data} updateFunc={updateModal} deleteFunc={handleDelete} />
             </div>
         </>
     );
