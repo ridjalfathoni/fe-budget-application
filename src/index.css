@@ -74,8 +74,25 @@ a:active {
 }
 
 .features-menu {
+    display: flex;
+    flex-direction: column;
     grid-column-start: 3;
     grid-column-end: 13;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.features-header {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-add {
+    width: 52px;
 }
 
 .features-content {
